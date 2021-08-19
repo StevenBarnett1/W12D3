@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const res = await fetch("http://localhost:8080/tweets");
         const { tweets } = await res.json();
         if (res.statusCode = 401) {
-            res.redirect('/users/login')
+            // res.redirect('/users/login')
         } else {
             const tweetsContainer = document.querySelector("#tweets-container");
             const tweetsHtml = tweets.map(

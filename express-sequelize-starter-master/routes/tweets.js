@@ -4,6 +4,10 @@ const db = require("../db/models")
 const {Tweet} = db
 const asyncHandler = (handler) => (req, res, next) => handler(req, res, next).catch(next);
 const { check, validationResult } = require('express-validator')
+const { requireAuth } = require("../auth");
+
+
+router.use(requireAuth);
 
 // const handleValidationErrors = (req, res, next) => {
 //     const validationErrors = validationResult(req);
