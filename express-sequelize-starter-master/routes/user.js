@@ -63,12 +63,18 @@ router.post(
         });
 
         // TODO: Password validation and error handling
-        User.prototype.validatePassword = function (password) {
-            // Note that since this function is a model instance method,
-            // `this` is the user instance here:
-            return bcrypt.compareSync(password, this.password.toString());
-        };
+    if (!user || !user.validatePassword(password)) {
+        const err = new Error("Login failed");
+        err.status = 401;
+        err.title = "Login failed";
+        err.errors = ["The provided credentials were invalid."];
+        return next(err);
+        }
         // TODO: Token generation
+        let token = getUserToken(user)
+        res.json({
+            token,user:{id:user.id}
+        })
     })
 );
 
