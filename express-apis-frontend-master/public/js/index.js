@@ -1,10 +1,17 @@
 document.addEventListener("DOMContentLoaded", async () => {
     try {
-        const res = await fetch("http://localhost:8080/tweets");
-        const { tweets } = await res.json();
-        if (res.statusCode = 401) {
-            // res.redirect('/users/login')
+        const res = await fetch("http://localhost:8080/tweets", {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem(
+                    "TWITTER_LITE_ACCESS_TOKEN"
+                )}`
+            }
+        });
+        if (res.status === 401) {
+            window.location.href = "/log-in";
+            return;
         } else {
+            const { tweets } = await res.json();
             const tweetsContainer = document.querySelector("#tweets-container");
             const tweetsHtml = tweets.map(
                 ({ message }) => `
@@ -23,4 +30,3 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 console.log("Hello from index.js!");
-
