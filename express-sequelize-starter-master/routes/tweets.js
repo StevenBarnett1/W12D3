@@ -3,27 +3,14 @@ const router = express.Router()
 const db = require("../db/models")
 const {Tweet} = db
 const asyncHandler = (handler) => (req, res, next) => handler(req, res, next).catch(next);
-const { check, validationResult } = require('express-validator')
 const { requireAuth } = require("../auth");
 
 
 router.use(requireAuth);
 
-// const handleValidationErrors = (req, res, next) => {
-//     const validationErrors = validationResult(req);
-//     // TODO: Generate error object and invoke next middleware function
-//     const tweetValidator = [
-//      check('message')
-//         .exists({checkFalsy: true})
-//         .withMessage('tweet should exist')
-//         .isLength({ max:280})
-//         .withMessage('tweet should not be over 280 characters')
-//     ]
-
-//   };
-
 
 router.get("/", asyncHandler(async (req, res) => {
+    console.log("HELLO")
     let tweets = await Tweet.findAll()
     res.json(tweets)
 }));

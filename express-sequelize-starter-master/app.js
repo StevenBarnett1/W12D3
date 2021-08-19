@@ -5,18 +5,12 @@ const app = express();
 const tweetsRouter = require("./routes/tweets")
 const indexRouter = require("./routes/index")
 const userRoter = require("./routes/user")
-const session = require("express-session")
 const cors = require('cors')
 app.use(cors({ origin: "http://localhost:4000" }));
 app.use(morgan("dev"));
 app.use(express.json())
-app.use(session({
-  secret: 'a5d63fc5-17a5-459c-b3ba-6d81792158fc',
-  resave: false,
-  saveUninitialized: false,
-}));
+app.use('/tweets',tweetsRouter)
 app.use("/users",userRoter)
-app.use("/tweets",tweetsRouter)
 app.use("/",indexRouter)
 
 
