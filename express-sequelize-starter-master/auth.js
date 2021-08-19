@@ -1,6 +1,6 @@
 let login = (req,res,user)=> {
     res.session.auth = {
-        userId = user.id
+        userId: user.id
     }
 }
 
